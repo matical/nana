@@ -15,10 +15,7 @@
     "autoload": {
         "psr-4": {
             "ksmz\\nana\\": "src/"
-        },
-        "files": [
-            "yuki/helpers.php"
-        ]
+        }
     },
     "autoload-dev": {
         "psr-4": {
