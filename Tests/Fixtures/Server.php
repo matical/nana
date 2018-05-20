@@ -32,18 +32,12 @@ class Server
     public function start()
     {
         $pid = exec("php -S localhost:{$this->port} {$this->lumenDirectory} > /dev/null 2>&1 & echo $!");
-        $this->onShutdown($pid);
 
         while (@file_get_contents("http://localhost:{$this->port}/") === false) {
-            if ($this->failures >= 3) {
-                print "Failed to listen on http://localhost:{$this->port}\n";
-                exit(1);
-            }
-
-            $this->failures++;
-            print "No response from test server.\n";
             sleep(1);
         }
+        
+        $this->onShutdown($pid);
     }
 
     /**
