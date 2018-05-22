@@ -114,10 +114,10 @@ class Fetch
     }
 
     /**
-     * @param $userAgent
+     * @param string $userAgent
      * @return $this
      */
-    public function asUserAgent($userAgent)
+    public function asUserAgent(string $userAgent)
     {
         $this->overrideHeader('User-Agent', $userAgent);
 
@@ -218,21 +218,23 @@ class Fetch
     /**
      * Build the client and send the request.
      *
-     * @param $method
-     * @param $url
-     * @param $options
+     * @param string $method
+     * @param string $url
+     * @param array  $options
      * @return \ksmz\nana\Consume
      *
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    public function send($method, $url, $options)
+    public function send(string $method, string $url, array $options)
     {
         try {
-            $client = $this->buildClient()->request($method, $url, $this->mergeOptions([
-                // Guzzle overwrites all query string values in the URI if queries are specified
-                // in the 'query' option, so they need to be extracted first.
-                'query' => $this->parseQueryParams($url),
-            ], $options));
+            // Guzzle overwrites all query string values in the URI if queries are specified
+            // in the 'query' option, so they need to be extracted first.
+            $optionsPayload = $this->mergeOptions(
+                ['query' => $this->parseQueryParams($url)], $options
+            );
+
+            $client = $this->buildClient()->request($method, $url, $optionsPayload);
 
             return new Consume($client);
         } catch (GuzzleException $exception) {
