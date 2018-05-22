@@ -298,8 +298,22 @@ class Fetch
      */
     protected function parseQueryParams($url)
     {
-        return pat([], function (&$queryStrings) use ($url) {
+        return $this->tap([], function (&$queryStrings) use ($url) {
             parse_str(parse_url($url, PHP_URL_QUERY), $queryStrings);
         });
+    }
+
+    /**
+     * Call the given Closure with the given value then return the value.
+     *
+     * @param mixed         $value
+     * @param callable|null $callback
+     * @return mixed
+     */
+    protected function tap($value, $callback = null)
+    {
+        $callback($value);
+
+        return $value;
     }
 }
