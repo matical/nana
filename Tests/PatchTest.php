@@ -21,7 +21,7 @@ class PatchTest extends BaseTest
 
         $this->assertPatch([
             'headers'      => [
-                'content-type' => ['application/json'],
+                'content-type' => 'application/json',
             ],
             'json_payload' => [
                 'ksmz' => 'is mine',
@@ -40,7 +40,7 @@ class PatchTest extends BaseTest
 
         $this->assertPatch([
             'headers'     => [
-                'content-type' => ['application/x-www-form-urlencoded'],
+                'content-type' => 'application/x-www-form-urlencoded',
             ],
             'form_params' => [
                 'ksmz' => 'is mine',

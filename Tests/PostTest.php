@@ -21,7 +21,7 @@ class PostTest extends BaseTest
 
         $this->assertPost([
             'headers'      => [
-                'content-type' => ['application/json'],
+                'content-type' => 'application/json',
             ],
             'json_payload' => [
                 'ksmz' => 'is mine',
@@ -40,7 +40,7 @@ class PostTest extends BaseTest
 
         $this->assertPost([
             'headers'     => [
-                'content-type' => ['application/x-www-form-urlencoded'],
+                'content-type' => 'application/x-www-form-urlencoded',
             ],
             'form_params' => [
                 'ksmz' => 'is mine',
@@ -67,6 +67,6 @@ class PostTest extends BaseTest
         $this->assertSame('is mine', $response['field']);
         $this->assertSame('ksmz.txt', $response['file']['filename']);
         $this->assertSame('ksmz is mine', $response['file']['content']);
-        $this->assertStringStartsWith('multipart/form-data', $response['headers']['content-type'][0]);
+        $this->assertStringStartsWith('multipart/form-data', $response['headers']['content-type']);
     }
 }

@@ -8,11 +8,22 @@ use Laravel\Lumen\Application;
 putenv('APP_DEBUG=true');
 $app = new Application(dirname(__DIR__) . '/');
 
+function normalizeHeaders($headers)
+{
+    $squished = [];
+
+    foreach ($headers as $header => $value) {
+        $squished[$header] = $value[0];
+    }
+
+    return $squished;
+}
+
 function res(Request $request)
 {
     return response()->json([
         'method'        => $request->getMethod(),
-        'headers'       => $request->headers->all(),
+        'headers'       => normalizeHeaders($request->headers),
         'query_strings' => $request->query(),
         'form_params'   => $request->request->all(),
         'json_payload'  => $request->json()->all(),
@@ -37,7 +48,7 @@ $app->router->post('post-multipart', function (Request $request) {
     $file = $request->file('testfile');
 
     return response()->json([
-        'headers' => $request->headers->all(),
+        'headers' => normalizeHeaders($request->headers),
         'field'   => $request->get('ksmz'),
         'file'    => [
             'filename' => $file->getClientOriginalName(),

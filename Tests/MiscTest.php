@@ -2,8 +2,8 @@
 
 namespace ksmz\nana\Tests;
 
-use ksmz\nana\Fetch;
 use ksmz\nana\Nana;
+use ksmz\nana\Fetch;
 
 class MiscTest extends BaseTest
 {

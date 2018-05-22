@@ -14,7 +14,7 @@ class OptionsTest extends BaseTest
     protected function assertHeader($header, $expected, Consume $actual)
     {
         $this->assertArraySubset([
-            $header => [$expected],
+            $header => $expected,
         ], $actual->json(true)['headers']);
     }
 
@@ -56,8 +56,8 @@ class OptionsTest extends BaseTest
         ])->get('/get');
 
         $this->assertHeaders([
-            'x-ksmz' => ['is mine'],
-            'custom' => ['header'],
+            'x-ksmz' => 'is mine',
+            'custom' => 'header',
         ], $response);
     }
 }
