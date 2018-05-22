@@ -5,7 +5,6 @@ namespace ksmz\nana;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\RequestOptions as Options;
-use ksmz\nana\Exceptions\InvalidBodyFormat;
 
 class Fetch
 {
@@ -231,7 +230,8 @@ class Fetch
             // Guzzle overwrites all query string values in the URI if queries are specified
             // in the 'query' option, so they need to be extracted first.
             $optionsPayload = $this->mergeOptions(
-                ['query' => $this->parseQueryParams($url)], $options
+                ['query' => $this->parseQueryParams($url)],
+                $options
             );
 
             $client = $this->buildClient()->request($method, $url, $optionsPayload);
