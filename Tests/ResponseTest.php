@@ -13,10 +13,16 @@ class ResponseTest extends BaseTest
             return $this->status() === 418;
         });
 
-        $trueResponse = $this->http->withOptions(['http_errors' => false])
-                                   ->get('/status/418');
+        $trueResponse = $this->newHttp()
+                             ->withOptions(['http_errors' => false])
+                             ->get('/status/418');
+
+        $falseResponse = $this->newHttp()
+                              ->withOptions(['http_errors' => false])
+                              ->get('/status/420');
 
         $this->assertTrue($trueResponse->isTeapot());
+        $this->assertFalse($falseResponse->isTeapot());
     }
 
     /** @test */

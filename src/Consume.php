@@ -53,6 +53,9 @@ class Consume
         return $this->response->getHeaderLine($header);
     }
 
+    /**
+     * @return string
+     */
     public function __toString()
     {
         return $this->body();

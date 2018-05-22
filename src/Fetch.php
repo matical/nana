@@ -50,13 +50,12 @@ class Fetch
     /**
      * Fetch constructor.
      *
-     * @param null $options
-     * @param null $headers
+     * @param array $options
      */
-    public function __construct($options = null, $headers = null)
+    public function __construct(array $options = [])
     {
         $this->options = empty($options) ? $this->defaultOptions : $options;
-        $this->options['headers'] = empty($headers) ? $this->defaultHeaders : $headers;
+        $this->options['headers'] = $this->defaultHeaders;
     }
 
     /**

@@ -36,7 +36,7 @@ class Server
         while (@file_get_contents("http://localhost:{$this->port}/") === false) {
             sleep(1);
         }
-        
+
         $this->onShutdown($pid);
     }
 

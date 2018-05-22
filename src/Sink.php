@@ -2,13 +2,28 @@
 
 namespace ksmz\nana;
 
+use ksmz\nana\Exceptions\ClientAlreadyRegisteredException;
+
 /** @mixin Fetch */
 class Sink
 {
+    /**
+     * @var array
+     */
     public static $faucets = [];
 
-    public static function registerClient($name, $fetch = null)
+    /**
+     * @param string                         $name
+     * @param \ksmz\nana\Fetch|\Closure|null $fetch
+     *
+     * @throws \ksmz\nana\Exceptions\ClientAlreadyRegisteredException
+     */
+    public static function registerClient(string $name = 'default', $fetch = null)
     {
+        if (array_key_exists($name, static::$faucets)) {
+            throw new ClientAlreadyRegisteredException("'{$name}' is already registered with the sink.");
+        }
+
         if ($fetch instanceof Fetch) {
             static::$faucets[$name] = $fetch;
         } elseif ($fetch instanceof \Closure) {
@@ -18,11 +33,20 @@ class Sink
         }
     }
 
-    public static function client($faucet)
+    /**
+     * @param $faucet
+     * @return \ksmz\nana\Fetch
+     */
+    public static function client($faucet = 'default')
     {
         return static::$faucets[$faucet];
     }
 
+    /**
+     * @param $name
+     * @param $arguments
+     * @return \ksmz\nana\Fetch|mixed
+     */
     public static function __callStatic($name, $arguments)
     {
         return static::client('default')->{$name}(...$arguments);

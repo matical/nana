@@ -27,4 +27,9 @@ abstract class BaseTest extends TestCase
     {
         $this->http = new Fetch(['base_uri' => $this->baseUrl]);
     }
+
+    protected function newHttp()
+    {
+        return new Fetch(['base_uri' => $this->baseUrl]);
+    }
 }
