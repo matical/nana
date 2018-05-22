@@ -251,10 +251,6 @@ class Fetch
      */
     protected function bodyFormat($format)
     {
-        if (! \in_array($format, $this->availableBodyFormats, true)) {
-            throw new InvalidBodyFormat('Invalid body format');
-        }
-
         $this->bodyFormat = $format;
 
         return $this;
@@ -302,7 +298,7 @@ class Fetch
      */
     protected function parseQueryParams($url)
     {
-        return tap([], function (&$queryStrings) use ($url) {
+        return pat([], function (&$queryStrings) use ($url) {
             parse_str(parse_url($url, PHP_URL_QUERY), $queryStrings);
         });
     }

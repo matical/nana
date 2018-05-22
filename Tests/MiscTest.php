@@ -3,6 +3,7 @@
 namespace ksmz\nana\Tests;
 
 use ksmz\nana\Fetch;
+use ksmz\nana\Nana;
 
 class MiscTest extends BaseTest
 {
@@ -28,5 +29,13 @@ class MiscTest extends BaseTest
     public function it_rethrows_guzzle_http_exceptions()
     {
         $this->http->get('nonExistentRoute');
+    }
+
+    /** @test */
+    public function nana_proxies_and_creates_new_instances()
+    {
+        $response = Nana::get($this->baseUrl . '/ping');
+
+        $this->assertSame('pong', $response->body());
     }
 }

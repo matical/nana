@@ -17,7 +17,7 @@ class QueryTest extends BaseTest
     public function it_works()
     {
         $response = $this->http->get('/ping');
-        $this->assertEquals('pong', $response->body());
+        $this->assertSame('pong', $response->body());
     }
 
     /** @test */

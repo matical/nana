@@ -1,6 +1,6 @@
 <?php
 
-if (! function_exists('tap')) {
+if (! function_exists('pat')) {
     /**
      * Call the given Closure with the given value then return the value.
      *
@@ -8,7 +8,7 @@ if (! function_exists('tap')) {
      * @param callable|null $callback
      * @return mixed
      */
-    function tap($value, $callback = null)
+    function pat($value, $callback = null)
     {
         $callback($value);
 

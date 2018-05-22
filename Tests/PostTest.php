@@ -64,9 +64,9 @@ class PostTest extends BaseTest
             ],
         ])->json(true);
 
-        $this->assertEquals('is mine', $response['field']);
-        $this->assertEquals('ksmz.txt', $response['file']['filename']);
-        $this->assertEquals('ksmz is mine', $response['file']['content']);
+        $this->assertSame('is mine', $response['field']);
+        $this->assertSame('ksmz.txt', $response['file']['filename']);
+        $this->assertSame('ksmz is mine', $response['file']['content']);
         $this->assertStringStartsWith('multipart/form-data', $response['headers']['content-type'][0]);
     }
 }
