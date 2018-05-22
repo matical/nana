@@ -115,7 +115,7 @@ class Fetch
 
     /**
      * @param string $userAgent
-     * @return $this
+     * @return self
      */
     public function asUserAgent(string $userAgent)
     {
@@ -126,7 +126,7 @@ class Fetch
 
     /**
      * @param $accept
-     * @return $this
+     * @return self
      */
     public function accepts($accept)
     {
@@ -247,7 +247,7 @@ class Fetch
      * Set the request to the specified format.
      *
      * @param $format
-     * @return $this
+     * @return self
      */
     protected function bodyFormat($format)
     {
@@ -282,7 +282,7 @@ class Fetch
      *
      * @param $header
      * @param $value
-     * @return $this
+     * @return self
      */
     protected function overrideHeader($header, $value)
     {
