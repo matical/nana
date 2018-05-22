@@ -18,7 +18,7 @@ class Sink
      *
      * @throws \ksmz\nana\Exceptions\ClientAlreadyRegisteredException
      */
-    public static function registerClient(string $name = 'default', $fetch = null)
+    public static function registerFaucet(string $name = 'default', $fetch = null)
     {
         if (array_key_exists($name, static::$faucets)) {
             throw new ClientAlreadyRegisteredException("'{$name}' is already registered with the sink.");
@@ -37,7 +37,7 @@ class Sink
      * @param $faucet
      * @return \ksmz\nana\Fetch
      */
-    public static function client($faucet = 'default')
+    public static function faucet($faucet = 'default')
     {
         return static::$faucets[$faucet];
     }
@@ -49,6 +49,6 @@ class Sink
      */
     public static function __callStatic($name, $arguments)
     {
-        return static::client('default')->{$name}(...$arguments);
+        return static::faucet('default')->{$name}(...$arguments);
     }
 }

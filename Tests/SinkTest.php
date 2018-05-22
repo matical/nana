@@ -15,22 +15,22 @@ class SinkTest extends BaseTest
     public function clients_can_be_registered_with_an_existing_instance()
     {
         $freshInstance = $this->newHttp();
-        Sink::registerClient('default', $freshInstance);
+        Sink::registerFaucet('default', $freshInstance);
 
         $response = Sink::get('/ping');
 
-        $this->assertSame($freshInstance, Sink::client('default'));
+        $this->assertSame($freshInstance, Sink::faucet('default'));
         $this->assertSame('pong', $response->body());
     }
 
     /** @test */
     public function clients_can_be_registered_via_closures()
     {
-        Sink::registerClient('nana', function () {
+        Sink::registerFaucet('nana', function () {
             return $this->newHttp();
         });
 
-        $response = Sink::client('nana')
+        $response = Sink::faucet('nana')
                         ->get('/ping');
         $this->assertSame('pong', $response->body());
     }
@@ -42,11 +42,11 @@ class SinkTest extends BaseTest
      */
     public function clients_will_register_a_simple_instance()
     {
-        Sink::registerClient('fresh');
+        Sink::registerFaucet('fresh');
 
-        Sink::client('fresh')->get('/ping');
+        Sink::faucet('fresh')->get('/ping');
 
-        $validResponse = Sink::client('fresh')
+        $validResponse = Sink::faucet('fresh')
                              ->get($this->baseUrl . '/ping');
         $this->assertSame('pong', $validResponse->body());
     }
@@ -57,7 +57,7 @@ class SinkTest extends BaseTest
      */
     public function clients_cannot_be_registered_twice()
     {
-        Sink::registerClient('newClient');
-        Sink::registerClient('newClient');
+        Sink::registerFaucet('newClient');
+        Sink::registerFaucet('newClient');
     }
 }
