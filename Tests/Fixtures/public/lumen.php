@@ -69,6 +69,10 @@ $app->router->get('header/{name}/{value}', function ($name, $value) {
     ]);
 });
 
+$app->router->post('headers', function (Request $request) {
+    return response()->json($request->json()->all(), 200, $request->json()->all());
+});
+
 $app->router->get('from', function () {
     return redirect('to');
 });
