@@ -5,3 +5,15 @@
 [![StyleCI](https://styleci.io/repos/103241043/shield?branch=master)](https://styleci.io/repos/103241043)
 
 Yet another guzzle wrapper.
+
+Documentation is still in the [works](https://github.com/matical/nana/wiki). Checkout the [tests](https://github.com/matical/nana/tree/master/Tests) for a rough idea.
+
+```php
+$response = Nana::get('https://httpbin.org/get');
+
+$response->status() // 200
+$response->json()->url // "https://httpbin.org/get"
+
+$response->body() // Raw JSON string
+$response->getHeaderLine('Date') // All calls are forwarded to the underlying PSR-7/Guzzle Response instance
+```
