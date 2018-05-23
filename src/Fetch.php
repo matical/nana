@@ -26,14 +26,10 @@ class Fetch
      */
     protected $defaultOptions = [
         'http_errors' => false,
-    ];
-
-    /**
-     * @var array
-     */
-    protected $defaultHeaders = [
-        'User-Agent' => 'nana/0.1',
-        'Accept'     => 'application/json',
+        'headers'     => [
+            'User-Agent' => 'nana/0.1',
+            'Accept'     => 'application/json',
+        ],
     ];
 
     /**
@@ -54,7 +50,6 @@ class Fetch
     public function __construct(array $options = [])
     {
         $this->options = empty($options) ? $this->defaultOptions : $options;
-        $this->options['headers'] = $this->defaultHeaders;
     }
 
     /**
