@@ -270,7 +270,7 @@ class Fetch
      */
     protected function mergeOptions(...$options)
     {
-        return array_merge_recursive($this->options, ...$options);
+        return \array_merge_recursive($this->options, ...$options);
     }
 
     /**
@@ -299,7 +299,7 @@ class Fetch
     protected function parseQueryParams($url)
     {
         return $this->tap([], function (&$queryStrings) use ($url) {
-            parse_str(parse_url($url, PHP_URL_QUERY), $queryStrings);
+            \parse_str(\parse_url($url, PHP_URL_QUERY), $queryStrings);
         });
     }
 

@@ -41,7 +41,7 @@ class Consume
      */
     public function json($asArray = false)
     {
-        return json_decode($this->response->getBody(), $asArray);
+        return \json_decode($this->response->getBody(), $asArray);
     }
 
     /**
