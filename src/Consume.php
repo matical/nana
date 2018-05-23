@@ -13,7 +13,7 @@ class Consume
     }
 
     /**
-     * @var \Psr\Http\Message\ResponseInterface
+     * @var \GuzzleHttp\Psr7\Response
      */
     protected $response;
 
@@ -30,27 +30,48 @@ class Consume
     /**
      * @return string
      */
-    public function body()
+    public function body(): string
     {
         return (string) $this->response->getBody();
     }
 
     /**
-     * @param bool $asArray
-     * @return mixed
+     * @return \GuzzleHttp\Psr7\Stream|\Psr\Http\Message\StreamInterface
      */
-    public function json($asArray = false)
+    public function stream()
+    {
+        return $this->response->getBody();
+    }
+
+    /**
+     * @param bool $asArray
+     * @return \stdClass|array
+     */
+    public function json(bool $asArray = false)
     {
         return \json_decode($this->response->getBody(), $asArray);
     }
 
     /**
-     * @param $header
+     * @param string $header
+     * @param bool   $asArray
      * @return string
      */
-    public function header($header)
+    public function header(string $header, bool $asArray = false)
     {
+        if ($asArray) {
+            return $this->response->getHeader($header);
+        }
+
         return $this->response->getHeaderLine($header);
+    }
+
+    /**
+     * @return array
+     */
+    public function headers()
+    {
+        return $this->response->getHeaders();
     }
 
     /**
