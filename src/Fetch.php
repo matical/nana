@@ -134,6 +134,13 @@ class Fetch
         return $this;
     }
 
+    public function saveTo($path)
+    {
+        $this->options = $this->mergeOptions(['sink' => $path]);
+
+        return $this;
+    }
+
     /**
      * Executes a GET.
      *
