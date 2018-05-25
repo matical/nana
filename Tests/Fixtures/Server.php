@@ -46,7 +46,7 @@ class Server
     public function onShutdown($pid)
     {
         register_shutdown_function(function () use ($pid) {
-            exec("kill $pid");
+            exec("kill $pid 2> /dev/null");
         });
     }
 
