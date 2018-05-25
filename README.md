@@ -18,3 +18,6 @@ $response->json()->url // "https://httpbin.org/get"
 $response->body() // Raw JSON string
 $response->getHeaderLine('Date') // All calls are forwarded to the underlying PSR-7/Guzzle Response instance
 ```
+
+## Install
+`composer require ksmz/nana`
