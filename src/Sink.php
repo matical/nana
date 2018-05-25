@@ -3,6 +3,7 @@
 namespace ksmz\nana;
 
 use Closure;
+use ksmz\nana\Exceptions\NonExistentClientException;
 use ksmz\nana\Exceptions\ClientAlreadyRegisteredException;
 
 /** @mixin Fetch */
@@ -47,9 +48,15 @@ class Sink
      * @param $name
      * @param $arguments
      * @return \ksmz\nana\Fetch|mixed
+     *
+     * @throws \ksmz\nana\Exceptions\NonExistentClientException
      */
     public static function __callStatic($name, $arguments)
     {
+        if (! \array_key_exists('default', static::$faucets)) {
+            throw new NonExistentClientException('A default client has yet to be registered.');
+        }
+
         return static::faucet('default')->{$name}(...$arguments);
     }
 }

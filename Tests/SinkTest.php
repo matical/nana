@@ -60,4 +60,13 @@ class SinkTest extends BaseTest
         Sink::registerFaucet('newClient');
         Sink::registerFaucet('newClient');
     }
+
+    /**
+     * @test
+     * @expectedException \ksmz\nana\Exceptions\NonExistentClientException
+     */
+    public function throws_exception_when_default_sink_is_not_present()
+    {
+        Sink::get('/get');
+    }
 }
