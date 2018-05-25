@@ -2,7 +2,6 @@
 
 namespace ksmz\nana;
 
-use Closure;
 use ksmz\nana\Exceptions\NonExistentClientException;
 use ksmz\nana\Exceptions\ClientAlreadyRegisteredException;
 
@@ -25,7 +24,7 @@ class Sink
      *
      * @throws \ksmz\nana\Exceptions\ClientAlreadyRegisteredException
      */
-    public static function register(string $name = 'default', $config)
+    public static function register(string $name, $config)
     {
         if (\array_key_exists($name, static::$faucets)) {
             throw new ClientAlreadyRegisteredException("[{$name}] is already exists in the sink.");
