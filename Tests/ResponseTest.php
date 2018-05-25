@@ -41,6 +41,7 @@ class ResponseTest extends BaseTest
 
         $this->assertSame('mine', $response->header('ksmz'));
         $this->assertSame(['mine'], $response->header('ksmz', true));
+        $this->assertSame($response->getHeaders() ,$response->headers());
     }
 
     /** @test */
@@ -51,6 +52,7 @@ class ResponseTest extends BaseTest
         $this->assertSame('pong', (string) $response);
     }
 
+    /** @test */
     public function it_fetches_streams()
     {
         $response = $this->http->get('/image');
