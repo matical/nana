@@ -15,48 +15,69 @@ class Sink
     public static $faucets = [];
 
     /**
-     * @param string                         $name
-     * @param \ksmz\nana\Fetch|\Closure|null $fetch
+     * @var array
+     */
+    public static $configs = [];
+
+    /**
+     * @param string $name
+     * @param array  $config
      *
      * @throws \ksmz\nana\Exceptions\ClientAlreadyRegisteredException
      */
-    public static function registerFaucet(string $name = 'default', $fetch = null)
+    public static function register(string $name = 'default', $config)
     {
         if (\array_key_exists($name, static::$faucets)) {
             throw new ClientAlreadyRegisteredException("[{$name}] is already exists in the sink.");
         }
 
-        if ($fetch instanceof Fetch) {
-            static::$faucets[$name] = $fetch;
-        } elseif ($fetch instanceof Closure) {
-            static::$faucets[$name] = $fetch();
-        } else {
-            static::$faucets[$name] = new Fetch();
+        static::$configs[$name] = $config;
+    }
+
+    /**
+     * @param string $name
+     * @return \ksmz\nana\Fetch
+     *
+     * @throws \ksmz\nana\Exceptions\NonExistentClientException
+     */
+    public static function faucet(string $name = 'default'): Fetch
+    {
+        if (! \array_key_exists('default', static::$configs)) {
+            throw new NonExistentClientException("[$name] has yet to be registered.");
         }
+
+        return static::$faucets[$name] = static::resolve($name);
+    }
+
+    /**
+     * @param string $name
+     * @return \ksmz\nana\Fetch|mixed
+     */
+    public static function fetch($name)
+    {
+        return static::$faucets[$name] ?? static::resolve($name);
     }
 
     /**
      * @param string $name
      * @return \ksmz\nana\Fetch
      */
-    public static function faucet(string $name = 'default'): Fetch
+    protected static function resolve($name)
     {
-        return static::$faucets[$name];
+        $config = static::$configs[$name];
+
+        return new Fetch($config);
     }
 
     /**
-     * @param $name
-     * @param $arguments
+     * @param string $name
+     * @param array  $arguments
      * @return \ksmz\nana\Fetch|mixed
      *
      * @throws \ksmz\nana\Exceptions\NonExistentClientException
      */
     public static function __callStatic($name, $arguments)
     {
-        if (! \array_key_exists('default', static::$faucets)) {
-            throw new NonExistentClientException('A default client has yet to be registered.');
-        }
-
-        return static::faucet('default')->{$name}(...$arguments);
+        return static::faucet()->{$name}(...$arguments);
     }
 }
