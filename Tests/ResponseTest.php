@@ -41,7 +41,7 @@ class ResponseTest extends BaseTest
 
         $this->assertSame('mine', $response->header('ksmz'));
         $this->assertSame(['mine'], $response->header('ksmz', true));
-        $this->assertSame($response->getHeaders() ,$response->headers());
+        $this->assertSame($response->getHeaders(), $response->headers());
     }
 
     /** @test */
