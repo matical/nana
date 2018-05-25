@@ -3,6 +3,7 @@
 namespace ksmz\nana\Tests;
 
 use ksmz\nana\Consume;
+use Psr\Http\Message\StreamInterface;
 
 class ResponseTest extends BaseTest
 {
@@ -39,6 +40,7 @@ class ResponseTest extends BaseTest
         $response = $this->http->get('/header/ksmz/mine');
 
         $this->assertSame('mine', $response->header('ksmz'));
+        $this->assertSame(['mine'], $response->header('ksmz', true));
     }
 
     /** @test */
@@ -47,6 +49,13 @@ class ResponseTest extends BaseTest
         $response = $this->http->get('/ping');
 
         $this->assertSame('pong', (string) $response);
+    }
+
+    public function it_fetches_streams()
+    {
+        $response = $this->http->get('/image');
+
+        $this->assertInstanceOf(StreamInterface::class, $response->stream());
     }
 
     /** @test */

@@ -119,17 +119,21 @@ class Fetch
     }
 
     /**
-     * @param $accept
+     * @param string $accept
      * @return self
      */
-    public function accepts($accept)
+    public function accepts(string $accept)
     {
         $this->overrideHeader('Accept', $accept);
 
         return $this;
     }
 
-    public function saveTo($path)
+    /**
+     * @param string $path
+     * @return self
+     */
+    public function saveTo(string $path)
     {
         $this->options = $this->mergeOptions(['sink' => $path]);
 
