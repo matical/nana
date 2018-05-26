@@ -47,7 +47,7 @@ class Sink
     public static function faucet(?string $name = null): Fetch
     {
         $name = $name ?? static::getDefaultSink();
-       
+
         if (! \array_key_exists($name, static::$configs)) {
             throw new NonExistentClientException("[$name] has yet to be registered.");
         }
