@@ -9,6 +9,11 @@ use ksmz\nana\Exceptions\ClientAlreadyRegisteredException;
 class Sink
 {
     /**
+     * @var string
+     */
+    public static $defaultSink = 'default';
+
+    /**
      * @var array
      */
     public static $faucets = [];
@@ -39,9 +44,11 @@ class Sink
      *
      * @throws \ksmz\nana\Exceptions\NonExistentClientException
      */
-    public static function faucet(string $name = 'default'): Fetch
+    public static function faucet(?string $name = null): Fetch
     {
-        if (! \array_key_exists('default', static::$configs)) {
+        $name = $name ?? static::getDefaultSink();
+       
+        if (! \array_key_exists($name, static::$configs)) {
             throw new NonExistentClientException("[$name] has yet to be registered.");
         }
 
@@ -66,6 +73,22 @@ class Sink
         $config = static::$configs[$name];
 
         return new Fetch($config);
+    }
+
+    /**
+     * @param string $sink
+     */
+    public static function setDefaultSink(string $sink)
+    {
+        static::$defaultSink = $sink;
+    }
+
+    /**
+     * @return string
+     */
+    public static function getDefaultSink()
+    {
+        return static::$defaultSink;
     }
 
     /**
