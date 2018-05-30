@@ -2,13 +2,13 @@
 
 namespace ksmz\nana;
 
-use Spatie\Macroable\Macroable;
+use ksmz\nana\Macroable\IsMacroable;
 use Psr\Http\Message\ResponseInterface;
 
 /** @mixin \GuzzleHttp\Psr7\Response */
 class Consume
 {
-    use InteractsWithStatuses, Macroable {
+    use InteractsWithStatuses, IsMacroable {
         __call as macroCall;
     }
 
