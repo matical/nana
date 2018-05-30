@@ -14,8 +14,8 @@ trait IsMacroable
     /**
      * Register a custom macro.
      *
-     * @param  string          $name
-     * @param  object|callable $macro
+     * @param string          $name
+     * @param object|callable $macro
      */
     public static function macro(string $name, $macro)
     {
@@ -25,7 +25,7 @@ trait IsMacroable
     /**
      * Mix another object into the class.
      *
-     * @param  object $mixin
+     * @param object $mixin
      * @throws \ReflectionException
      */
     public static function mixin($mixin)

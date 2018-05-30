@@ -86,18 +86,18 @@ class Consume implements Jsonable, Responsable
     /**
      * Convert the object to its JSON representation.
      *
-     * @param  int $options
+     * @param int $options
      * @return string
      */
     public function toJson($options = 0)
     {
         return $this->json();
     }
-    
+   
     /**
      * Create an HTTP response that represents the object.
      *
-     * @param  \Illuminate\Http\Request $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function toResponse($request)
