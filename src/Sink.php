@@ -9,11 +9,6 @@ use ksmz\nana\Exceptions\ClientAlreadyRegisteredException;
 class Sink
 {
     /**
-     * @var string
-     */
-    public static $defaultSink = 'default';
-
-    /**
      * @var array
      */
     public static $faucets = [];
@@ -22,6 +17,11 @@ class Sink
      * @var array
      */
     public static $configs = [];
+
+    /**
+     * @var string
+     */
+    protected static $defaultSink = 'default';
 
     /**
      * @param string $name
