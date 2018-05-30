@@ -60,11 +60,7 @@ class Consume implements Jsonable, Responsable
      */
     public function header(string $header, bool $asArray = false)
     {
-        if ($asArray) {
-            return $this->response->getHeader($header);
-        }
-
-        return $this->response->getHeaderLine($header);
+        return $asArray ? $this->response->getHeader($header) : $this->response->getHeaderLine($header);
     }
 
     /**
