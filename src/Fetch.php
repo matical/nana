@@ -73,12 +73,23 @@ class Fetch
     }
 
     /**
-     * @param $headers
+     * @param array $headers
      * @return self
      */
-    public function withHeaders($headers)
+    public function withHeaders(array $headers)
     {
         $this->options = $this->mergeOptions(['headers' => $headers]);
+
+        return $this;
+    }
+
+    /**
+     * @param array $queries
+     * @return self
+     */
+    public function withQueries(array $queries)
+    {
+        $this->options = $this->mergeOptions(['query' => $queries]);
 
         return $this;
     }
