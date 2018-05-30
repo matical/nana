@@ -111,6 +111,6 @@ class Consume implements Jsonable, Responsable
      */
     public function toResponse($request)
     {
-        return response()->json($this->body());
+        return response()->json($this->json());
     }
 }
