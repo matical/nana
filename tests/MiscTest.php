@@ -4,6 +4,9 @@ namespace ksmz\nana\Tests;
 
 use ksmz\nana\Nana;
 use ksmz\nana\Fetch;
+use ksmz\nana\Consume;
+use Illuminate\Contracts\Support\Jsonable;
+use Illuminate\Contracts\Support\Responsable;
 
 class MiscTest extends BaseTest
 {
@@ -37,5 +40,15 @@ class MiscTest extends BaseTest
         $response = Nana::get($this->baseUrl . '/ping');
 
         $this->assertSame('pong', $response->body());
+    }
+
+    /** @test */
+    public function implements_laravel_interfaces()
+    {
+        $prophecy = $this->prophesize(Consume::class)
+                         ->reveal();
+
+        $this->assertInstanceOf(Jsonable::class, $prophecy);
+        $this->assertInstanceOf(Responsable::class, $prophecy);
     }
 }
