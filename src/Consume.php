@@ -2,7 +2,6 @@
 
 namespace ksmz\nana;
 
-use ksmz\nana\Macroable\IsMacroable;
 use Psr\Http\Message\ResponseInterface;
 
 /** @mixin \GuzzleHttp\Psr7\Response */

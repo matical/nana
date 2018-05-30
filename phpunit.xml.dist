@@ -12,8 +12,8 @@
 >
     <testsuites>
         <testsuite name="nana Test Suite">
-            <directory suffix=".php">./Tests/</directory>
-            <exclude>./Tests/Fixtures</exclude>
+            <directory suffix=".php">./tests/</directory>
+            <exclude>./tests/Fixtures</exclude>
         </testsuite>
     </testsuites>
     <filter>

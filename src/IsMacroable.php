@@ -1,6 +1,6 @@
 <?php
 
-namespace ksmz\nana\Macroable;
+namespace ksmz\nana;
 
 use Closure;
 use ReflectionClass;
