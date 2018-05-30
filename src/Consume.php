@@ -93,16 +93,7 @@ class Consume implements Jsonable, Responsable
     {
         return $this->json();
     }
-
-    public function __call($method, $parameters)
-    {
-        if (static::hasMacro($method)) {
-            return $this->macroCall($method, $parameters);
-        }
-
-        return $this->response->{$method}(...$parameters);
-    }
-
+    
     /**
      * Create an HTTP response that represents the object.
      *
@@ -112,5 +103,14 @@ class Consume implements Jsonable, Responsable
     public function toResponse($request)
     {
         return response()->json($this->json());
+    }
+
+    public function __call($method, $parameters)
+    {
+        if (static::hasMacro($method)) {
+            return $this->macroCall($method, $parameters);
+        }
+
+        return $this->response->{$method}(...$parameters);
     }
 }
