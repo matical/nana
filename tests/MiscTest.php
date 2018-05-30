@@ -10,7 +10,7 @@ class MiscTest extends BaseTest
     /** @test */
     public function it_creates_unique_classes()
     {
-        $this->assertNotSame(Fetch::new(), Fetch::new());
+        $this->assertNotSame(Fetch::newInstance(), Fetch::newInstance());
     }
 
     /**
@@ -19,7 +19,7 @@ class MiscTest extends BaseTest
      */
     public function it_rethrows_guzzle_exceptions()
     {
-        Fetch::new()->get('invaliduri');
+        Fetch::newInstance()->get('invaliduri');
     }
 
     /**

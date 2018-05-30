@@ -56,7 +56,7 @@ class Fetch
      * @param mixed ...$args
      * @return static
      */
-    public static function new(...$args)
+    public static function newInstance(...$args)
     {
         return new static(...$args);
     }
