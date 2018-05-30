@@ -19,7 +19,7 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "ksmz\\nana\\Tests\\": "Tests/"
+            "ksmz\\nana\\Tests\\": "tests/"
         }
     },
     "scripts": {
