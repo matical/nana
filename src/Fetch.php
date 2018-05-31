@@ -3,6 +3,7 @@
 namespace ksmz\nana;
 
 use GuzzleHttp\Client;
+use Psr\Http\Message\ResponseInterface;
 use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\RequestOptions as Options;
 
@@ -251,13 +252,24 @@ class Fetch
                 $options
             );
 
-            $client = $this->buildClient()->request($method, $url, $optionsPayload);
+            $response = $this->buildClient()->request($method, $url, $optionsPayload);
 
-            return new Consume($client);
+            return $this->buildResponse($response);
         } catch (GuzzleException $exception) {
             // No "custom" exceptions, just rethrow whatever guzzle spits out.
             throw $exception;
         }
+    }
+
+    /**
+     * Build a new response.
+     *
+     * @param \Psr\Http\Message\ResponseInterface $response
+     * @return \ksmz\nana\Consume
+     */
+    protected function buildResponse(ResponseInterface $response)
+    {
+        return new Consume($response);
     }
 
     /**
