@@ -153,6 +153,14 @@ class Fetch
     }
 
     /**
+     * @return \ksmz\nana\Fetch
+     */
+    public function clone()
+    {
+        return clone $this;
+    }
+
+    /**
      * Executes a GET.
      *
      * @param string $url
