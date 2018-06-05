@@ -270,6 +270,14 @@ class Fetch
     }
 
     /**
+     * @return \GuzzleHttp\Client
+     */
+    public function getHttpClient()
+    {
+        return $this->buildClient($this->options);
+    }
+
+    /**
      * Build a new response.
      *
      * @param \Psr\Http\Message\ResponseInterface $response
@@ -294,11 +302,12 @@ class Fetch
     }
 
     /**
+     * @param array $options
      * @return \GuzzleHttp\Client
      */
-    protected function buildClient()
+    protected function buildClient(array $options = [])
     {
-        return new Client();
+        return new Client($options);
     }
 
     /**
