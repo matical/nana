@@ -155,7 +155,7 @@ class Fetch
     /**
      * @return \ksmz\nana\Fetch
      */
-    public function clone()
+    public function once()
     {
         return clone $this;
     }
