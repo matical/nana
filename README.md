@@ -9,6 +9,8 @@ Yet another guzzle wrapper.
 
 Documentation is still in the [works](https://github.com/matical/nana/wiki). Checkout the [tests](https://github.com/matical/nana/tree/master/Tests) for a rough idea.
 
+A Laravel package is available [here](https://github.com/matical/nana-laravel). It provides some neat features like being able to save files to your existing filesystems.
+
 ```php
 $response = Nana::get('https://httpbin.org/get');
 
