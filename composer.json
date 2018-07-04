@@ -3,13 +3,13 @@
     "description": "Yet another guzzle wrapper",
     "type": "library",
     "require": {
-        "php": ">=7.1.3",
-        "guzzlehttp/guzzle": "~6.3"
+        "php": ">=7.1",
+        "guzzlehttp/guzzle": "^6.3"
     },
     "require-dev": {
         "phpunit/phpunit": "~7.0",
         "laravel/lumen-framework": "5.*",
-        "psy/psysh": "^0.9.4"
+        "psy/psysh": "^0.9"
     },
     "autoload": {
         "psr-4": {
