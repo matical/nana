@@ -63,10 +63,10 @@ class Fetch
     }
 
     /**
-     * @param $options
+     * @param array $options
      * @return self
      */
-    public function withOptions($options)
+    public function withOptions(array $options)
     {
         $this->options = $this->mergeOptions($options);
 
@@ -96,7 +96,7 @@ class Fetch
     }
 
     /**
-     * @return \ksmz\nana\Fetch
+     * @return self
      */
     public function asJson()
     {
@@ -104,7 +104,7 @@ class Fetch
     }
 
     /**
-     * @return \ksmz\nana\Fetch
+     * @return self
      */
     public function asFormParams()
     {
@@ -112,7 +112,7 @@ class Fetch
     }
 
     /**
-     * @return \ksmz\nana\Fetch
+     * @return self
      */
     public function asMultipart()
     {
@@ -153,7 +153,7 @@ class Fetch
     }
 
     /**
-     * @return \ksmz\nana\Fetch
+     * @return self
      */
     public function once()
     {
@@ -322,11 +322,11 @@ class Fetch
     /**
      * Override and replace a header.
      *
-     * @param $header
-     * @param $value
+     * @param string       $header
+     * @param string|array $value
      * @return self
      */
-    protected function overrideHeader($header, $value)
+    protected function overrideHeader(string $header, $value)
     {
         // Vs mergeOptions/pokeHeader, this ensures only one of the specific headers is set.
         $this->options['headers'][$header] = $value;
@@ -337,29 +337,18 @@ class Fetch
     /**
      * Extracts query params into an array.
      *
-     * @param $url
+     * @param string $url
      * @return array
      *
      * @see http://docs.guzzlephp.org/en/stable/request-options.html#query
      */
     protected function parseQueryParams($url)
     {
-        return $this->tap([], function (&$queryStrings) use ($url) {
-            \parse_str(\parse_url($url, PHP_URL_QUERY), $queryStrings);
-        });
-    }
+        $queries = [];
 
-    /**
-     * Call the given Closure with the given value then return the value.
-     *
-     * @param mixed         $value
-     * @param callable|null $callback
-     * @return mixed
-     */
-    protected function tap($value, $callback = null)
-    {
-        $callback($value);
+        $querySegment = \parse_url($url, PHP_URL_QUERY);
+        \parse_str($querySegment, $queries);
 
-        return $value;
+        return $queries;
     }
 }
