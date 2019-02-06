@@ -3,11 +3,9 @@
 namespace ksmz\nana;
 
 use Psr\Http\Message\ResponseInterface;
-use Illuminate\Contracts\Support\Jsonable;
-use Illuminate\Contracts\Support\Responsable;
 
 /** @mixin \GuzzleHttp\Psr7\Response */
-class Consume implements Jsonable, Responsable
+class Consume
 {
     use InteractsWithStatuses, IsMacroable {
         __call as macroCall;
@@ -77,28 +75,6 @@ class Consume implements Jsonable, Responsable
     public function __toString()
     {
         return $this->body();
-    }
-
-    /**
-     * Convert the object to its JSON representation.
-     *
-     * @param int $options
-     * @return string
-     */
-    public function toJson($options = 0)
-    {
-        return $this->json();
-    }
-
-    /**
-     * Create an HTTP response that represents the object.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
-     */
-    public function toResponse($request)
-    {
-        return response()->json($this->json());
     }
 
     public function __call($method, $parameters)
