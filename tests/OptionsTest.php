@@ -30,7 +30,7 @@ class OptionsTest extends BaseTest
     /** @test */
     public function it_allows_custom_user_agents()
     {
-        $response = $this->http->asUserAgent('kwsm/0.1')
+        $response = $this->http->userAgent('kwsm/0.1')
                                ->get('/get');
 
         $this->assertHeader('user-agent', 'kwsm/0.1', $response);

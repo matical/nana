@@ -120,10 +120,25 @@ class Fetch
     }
 
     /**
+     * Configure http_errors.
+     *
+     * @param bool $enabled
+     * @return self
+     */
+    public function httpErrors(bool $enabled)
+    {
+        $this->overrideOptions('http_errors', $enabled);
+
+        return $this;
+    }
+
+    /**
+     * Configure the 'User-Agent' header.
+     *
      * @param string $userAgent
      * @return self
      */
-    public function asUserAgent(string $userAgent)
+    public function userAgent(string $userAgent)
     {
         $this->overrideHeader('User-Agent', $userAgent);
 
@@ -131,6 +146,8 @@ class Fetch
     }
 
     /**
+     * Configure the 'Accept' header.
+     *
      * @param string $accept
      * @return self
      */
@@ -142,6 +159,8 @@ class Fetch
     }
 
     /**
+     * Set a file path for Guzzle's sink.
+     *
      * @param string $path
      * @return self
      */
@@ -317,6 +336,20 @@ class Fetch
     protected function mergeOptions(...$options)
     {
         return \array_merge_recursive($this->options, ...$options);
+    }
+
+    /**
+     * Override and replace an option.
+     *
+     * @param string       $option
+     * @param string|array $value
+     * @return self
+     */
+    protected function overrideOptions(string $option, $value)
+    {
+        $this->options[$option] = $value;
+
+        return $this;
     }
 
     /**
