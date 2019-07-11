@@ -4,9 +4,22 @@ require_once __DIR__ . '/../../../vendor/autoload.php';
 
 use Illuminate\Http\Request;
 use Laravel\Lumen\Application;
+use Laravel\Lumen\Exceptions\Handler;
+use Illuminate\Contracts\Debug\ExceptionHandler;
+use Symfony\Component\HttpKernel\Exception\HttpException;
 
 putenv('APP_DEBUG=true');
 $app = new Application(dirname(__DIR__) . '/');
+
+$app->instance(
+    ExceptionHandler::class,
+    new Class() extends Handler
+    {
+        protected $dontReport = [
+            HttpException::class,
+        ];
+    }
+);
 
 function normalizeHeaders($headers)
 {
