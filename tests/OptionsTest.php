@@ -36,6 +36,18 @@ class OptionsTest extends BaseTest
         $this->assertHeader('user-agent', 'kwsm/0.1', $response);
     }
 
+    /**
+     * @test
+     * @expectedException \GuzzleHttp\Exception\ClientException
+     */
+    public function it_allows_http_errors_to_be_set()
+    {
+        $this->http->httpErrors(true);
+
+        $response = $this->http->get('/doesNotExist');
+        $this->assertSame(404, $response->getStatusCode());
+    }
+
     /** @test */
     public function it_allows_accept_to_be_specified()
     {
