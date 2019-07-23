@@ -28,6 +28,16 @@ class SinkTest extends BaseTest
 
     /**
      * @test
+     * @expectedException \ksmz\nana\Exceptions\ClientAlreadyRegisteredException
+     */
+    public function clients_cannot_be_registered_twice()
+    {
+        Sink::register('default', ['http_errors' => false]);
+        Sink::register('default', ['http_errors' => true]);
+    }
+
+    /**
+     * @test
      * @expectedException \ksmz\nana\Exceptions\NonExistentClientException
      */
     public function throws_exception_when_default_sink_is_not_present()

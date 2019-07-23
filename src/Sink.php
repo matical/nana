@@ -9,6 +9,8 @@ use ksmz\nana\Exceptions\ClientAlreadyRegisteredException;
 class Sink
 {
     /**
+     * Active instances of Fetch
+     *
      * @var array
      */
     public static $faucets = [];
@@ -29,9 +31,9 @@ class Sink
      *
      * @throws \ksmz\nana\Exceptions\ClientAlreadyRegisteredException
      */
-    public static function register(string $name, $config)
+    public static function register(string $name, $config): void
     {
-        if (\array_key_exists($name, static::$faucets)) {
+        if (\array_key_exists($name, static::$configs)) {
             throw new ClientAlreadyRegisteredException("[{$name}] is already exists in the sink.");
         }
 
