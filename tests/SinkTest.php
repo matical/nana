@@ -3,6 +3,7 @@
 namespace ksmz\nana\Tests;
 
 use ksmz\nana\Sink;
+use ksmz\nana\Fetch;
 
 class SinkTest extends BaseTest
 {
@@ -23,7 +24,19 @@ class SinkTest extends BaseTest
         ]);
 
         $response = Sink::get($this->baseUrl . '/get');
-        $this->assertEquals('test/0.1', $response->json()->headers->{'user-agent'});
+        $this->assertSame('test/0.1', $response->json()->headers->{'user-agent'});
+    }
+
+    /** @test */
+    public function existing_instances_can_be_registered()
+    {
+        $existingInstance = (new Fetch())->httpErrors(false)
+                                         ->userAgent('test/0.1');
+
+        Sink::register('default', $existingInstance);
+        $storedInstance = Sink::faucet('default');
+
+        $this->assertSame($existingInstance, $storedInstance);
     }
 
     /**

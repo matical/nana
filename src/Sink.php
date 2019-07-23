@@ -26,18 +26,24 @@ class Sink
     protected static $defaultSink = 'default';
 
     /**
-     * @param string $name
-     * @param array  $config
+     * Register a new faucet into the sink.
+     *
+     * @param string      $name
+     * @param array|Fetch $client
      *
      * @throws \ksmz\nana\Exceptions\ClientAlreadyRegisteredException
      */
-    public static function register(string $name, $config): void
+    public static function register(string $name, $client): void
     {
-        if (\array_key_exists($name, static::$configs)) {
+        if (\array_key_exists($name, static::$faucets) || \array_key_exists($name, static::$configs)) {
             throw new ClientAlreadyRegisteredException("[{$name}] is already exists in the sink.");
         }
 
-        static::$configs[$name] = $config;
+        if ($client instanceof Fetch) {
+            static::$faucets[$name] = $client;
+        }
+
+        static::$configs[$name] = $client;
     }
 
     /**
@@ -50,31 +56,39 @@ class Sink
     {
         $name = $name ?? static::getDefaultSink();
 
-        if (! \array_key_exists($name, static::$configs)) {
-            throw new NonExistentClientException("[$name] has yet to be registered.");
-        }
-
-        return static::$faucets[$name] = static::resolve($name);
+        // Store in local cache once resolved.
+        return static::$faucets[$name] = static::fetch($name);
     }
 
     /**
+     * Attempt to get an existing instance from the local cache.
+     *
      * @param string $name
-     * @return \ksmz\nana\Fetch|mixed
+     * @return \ksmz\nana\Fetch
+     *
+     * @throws \ksmz\nana\Exceptions\NonExistentClientException
      */
-    public static function fetch($name)
+    public static function fetch($name): Fetch
     {
         return static::$faucets[$name] ?? static::resolve($name);
     }
 
     /**
+     * Create a new instance based on the registered config.
+     *
      * @param string $name
      * @return \ksmz\nana\Fetch
+     *
+     * @throws \ksmz\nana\Exceptions\NonExistentClientException
      */
-    protected static function resolve($name)
+    protected static function resolve($name): Fetch
     {
-        $config = static::$configs[$name];
+        // Since there is no existing instance available, we will check if a config waiting for registration
+        if (! \array_key_exists($name, static::$configs)) {
+            throw new NonExistentClientException("[$name] has yet to be registered.");
+        }
 
-        return new Fetch($config);
+        return new Fetch(static::$configs[$name]);
     }
 
     /**
