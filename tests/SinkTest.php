@@ -27,6 +27,16 @@ class SinkTest extends BaseTest
         $this->assertSame('test/0.1', $response->json()->headers->{'user-agent'});
     }
 
+    /**
+     * @test
+     * @expectedException \ksmz\nana\Exceptions\ClientAlreadyRegisteredException
+     */
+    public function clients_cannot_be_registered_twice()
+    {
+        Sink::register('default', ['http_errors' => false]);
+        Sink::register('default', ['http_errors' => true]);
+    }
+
     /** @test */
     public function existing_instances_can_be_registered()
     {
@@ -37,16 +47,6 @@ class SinkTest extends BaseTest
         $storedInstance = Sink::faucet('default');
 
         $this->assertSame($existingInstance, $storedInstance);
-    }
-
-    /**
-     * @test
-     * @expectedException \ksmz\nana\Exceptions\ClientAlreadyRegisteredException
-     */
-    public function clients_cannot_be_registered_twice()
-    {
-        Sink::register('default', ['http_errors' => false]);
-        Sink::register('default', ['http_errors' => true]);
     }
 
     /**
