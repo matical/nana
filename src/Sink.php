@@ -9,7 +9,7 @@ use ksmz\nana\Exceptions\ClientAlreadyRegisteredException;
 class Sink
 {
     /**
-     * Active instances of Fetch
+     * Active instances of Fetch.
      *
      * @var array
      */
