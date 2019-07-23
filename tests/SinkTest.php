@@ -38,6 +38,19 @@ class SinkTest extends BaseTest
     }
 
     /** @test */
+    public function default_sink_can_be_changed()
+    {
+        $existingInstance = (new Fetch())->httpErrors(false)
+                                         ->userAgent('test/0.1');
+
+        Sink::register('photos', $existingInstance);
+        Sink::setDefaultSink('photos');
+
+        $this->assertSame('photos', Sink::getDefaultSink());
+        $this->assertSame($existingInstance, Sink::faucet());
+    }
+
+    /** @test */
     public function existing_instances_can_be_registered()
     {
         $existingInstance = (new Fetch())->httpErrors(false)
