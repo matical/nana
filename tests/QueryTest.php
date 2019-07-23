@@ -21,6 +21,18 @@ class QueryTest extends BaseTest
     }
 
     /** @test */
+    public function it_acknowledges_query_passed_through_options()
+    {
+        $response = $this->http->withQueries(['ksmz' => 'is mine', 'sck' => 'bap'])
+                               ->get('/get');
+
+        $this->assertQuery([
+            'ksmz' => 'is mine',
+            'sck'  => 'bap',
+        ], $response);
+    }
+
+    /** @test */
     public function it_acknowledges_query_strings_in_urls()
     {
         $response = $this->http->get('/get?ksmz=is%20mine&sck=bap');
@@ -46,13 +58,15 @@ class QueryTest extends BaseTest
     }
 
     /** @test */
-    public function it_allows_query_params_to_be_combined_with_parameters()
+    public function it_allows_query_params_to_be_combined_with_all_three_styles()
     {
-        $response = $this->http->get('/get?ksmz=is%20mine&sck=bap', [
-            'bapbap' => 'bap',
-        ]);
+        $response = $this->http->withQueries(['multi' => 'query'])
+                               ->get('/get?ksmz=is%20mine&sck=bap', [
+                                   'bapbap' => 'bap',
+                               ]);
 
         $this->assertQuery([
+            'multi'  => 'query',
             'ksmz'   => 'is mine',
             'sck'    => 'bap',
             'bapbap' => 'bap',
