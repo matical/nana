@@ -13,8 +13,7 @@ $app = new Application(dirname(__DIR__) . '/');
 
 $app->instance(
     ExceptionHandler::class,
-    new Class() extends Handler
-    {
+    new class() extends Handler {
         protected $dontReport = [
             HttpException::class,
         ];
