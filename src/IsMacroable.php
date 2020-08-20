@@ -2,10 +2,10 @@
 
 namespace ksmz\nana;
 
+use BadMethodCallException;
 use Closure;
 use ReflectionClass;
 use ReflectionMethod;
-use BadMethodCallException;
 
 trait IsMacroable
 {
