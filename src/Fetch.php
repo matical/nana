@@ -3,9 +3,9 @@
 namespace ksmz\nana;
 
 use GuzzleHttp\Client;
-use Psr\Http\Message\ResponseInterface;
 use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\RequestOptions as Options;
+use Psr\Http\Message\ResponseInterface;
 
 class Fetch
 {

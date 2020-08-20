@@ -2,8 +2,8 @@
 
 namespace ksmz\nana;
 
-use ksmz\nana\Exceptions\NonExistentClientException;
 use ksmz\nana\Exceptions\ClientAlreadyRegisteredException;
+use ksmz\nana\Exceptions\NonExistentClientException;
 
 /** @mixin Fetch */
 class Sink
